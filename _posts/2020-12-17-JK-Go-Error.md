@@ -1,6 +1,6 @@
 ---
 title: 第02周：Error
-category: JK-Go进阶训练营
+category: JK-Go
 typora-root-url: ..
 ---
 
