@@ -1,6 +1,6 @@
 ---
 title: 让TortoiseGit-记住远程仓库登陆的用户名和密码
-category: github
+category: git
 ---
 
 Windows 下 ctrl + r

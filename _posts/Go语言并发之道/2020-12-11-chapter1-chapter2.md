@@ -1,7 +1,7 @@
 ---
 title: Go语言并发之道
 category: 读书笔记
-typora-root-url: ..
+typora-root-url: ../..
 ---
 
 # 第一章 并发概述

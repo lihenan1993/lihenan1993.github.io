@@ -1,7 +1,7 @@
 ---
 title: TortoiseGIt_SSH登陆
 category: git
-typora-root-url: ..
+typora-root-url: ../..
 ---
 
 TortoiseGit基于putty的ssh实现密钥认证。

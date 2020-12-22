@@ -1,7 +1,7 @@
 ---
 title: Golang中Goroutine的调度流程
 category: Golang
-typora-root-url: ..
+typora-root-url: ../..
 ---
 
 # Golang中Goroutine的调度流程

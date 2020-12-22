@@ -1,6 +1,6 @@
 ---
 title: GitHub Page 使用
-category: github
+category: git
 ---
 
 
