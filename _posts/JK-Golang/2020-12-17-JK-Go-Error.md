@@ -1,7 +1,7 @@
 ---
 title: 第02周：Error
 category: JK-Go
-typora-root-url: ..
+typora-root-url: ../../
 ---
 
 # Error
