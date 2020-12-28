@@ -36,11 +36,21 @@ typora-root-url: ../..
 
   - 开发人员以顺序执行的思维思考问题
 
+  > 现在回看，这个太片面了。
+  >
+  > 应该是开发人员没有真正理解程序底层是如何执行的，
+  >
+  > 表面是多个goroutine同时访问临界资源，
+  >
+  > 底层来说由于CPU缓冲，内存重排，编译器重排，导致程序执行顺序与代码顺序不一致。
+
 - 对策
 
   - 仔细遍历所有可能的方案
   - 思考时候，**拉长相对时间**
   - 休眠能使竞争条件发生概率降低，但是不能消除，应该以逻辑正确性为目标
+
+  > golang里面，可以加锁，或者用chan进行通讯
 
 ### 原子性
 
@@ -125,13 +135,9 @@ package main
 
 import (
 	"bytes"
-
 	"fmt"
-
 	"sync"
-
 	"sync/atomic"
-
 	"time"
 )
 
@@ -141,80 +147,54 @@ func main() {
 	}
 
 	tryDir := func(dirName string, dir *int32, out *bytes.Buffer) bool {
-
 		fmt.Fprintf(out, "%+v", dirName)
-
 		// 方向人数+1
 		atomic.AddInt32(dir, 1)
-
 		// 等待一秒钟
 		takeStep()
-
 		// 走成功就返回
 		if atomic.LoadInt32(dir) == 1 {
-
 			fmt.Fprint(out, ".Success!")
-
 			return true
-
 		}
-
 		// 等待一秒钟
 		takeStep()
 		//没走成功，再走回来
 		atomic.AddInt32(dir, -1)
 
 		return false
-
 	}
 
 	var left, right int32
 
 	tryLeft := func(out *bytes.Buffer) bool {
 		return tryDir("向左走 ", &left, out)
-
 	}
 
 	tryRight := func(out *bytes.Buffer) bool {
 		return tryDir("向右走 ", &right, out)
-
 	}
 
 	walk := func(walking *sync.WaitGroup, name string) {
-
 		var out bytes.Buffer
-
 		defer walking.Done()
-
 		defer func() { fmt.Println(out.String()) }()
-
 		fmt.Fprintf(&out, "%v is tring to scoot:", name)
-
 		for i := 0; i < 5; i++ {
 			if tryLeft(&out) || tryRight(&out) {
-
 				return
-
 			}
-
 		}
 
 		fmt.Fprintf(&out, "\n%v is tried !", name)
-
 	}
 
 	var trail sync.WaitGroup
-
 	trail.Add(2)
-
 	go walk(&trail, "男人")
-
 	go walk(&trail, "女人")
-
 	trail.Wait()
-
 }
-
 ```
 
 
@@ -341,8 +321,3 @@ CSP原语和内存访问同步（sync包）都可以选择，使用最好描述�
   1. 关注数据的流动，就可以使用channel解决并发问题。
   2. 不流动的数据，如果存在并发访问，尝试使用sync.Mutex保护数据。
   3. 对于大问题，channel + mutex也许才是更好的方案。
-
-
-
-# 第三章 Go语言并发组件
-
