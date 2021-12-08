@@ -216,6 +216,9 @@ startsecs=10
 #脚本运行的用户身份 
 user = zesen
 
+#关闭时候发送信号
+stopsignal=TERM
+
 #日志输出 
 stderr_logfile=/home/zesen/game_server/stdlog/blog_stderr.log 
 stdout_logfile=/home/zesen/game_server/stdlog/blog_stdout.log 
